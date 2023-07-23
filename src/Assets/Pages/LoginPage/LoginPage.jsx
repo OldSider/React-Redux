@@ -1,11 +1,12 @@
 import { useSelector, useDispatch } from "react-redux";
-import { unwrapResult } from "@reduxjs/toolkit";
 import { Link, useNavigate } from "react-router-dom";
+import { loginAuth } from "../../Redux/Reducers/LoginAuth/Components/AsyncThunk";
 import {
   setEmail,
   setPassword,
 } from "../../Redux/Reducers/LoginAuth/LoginAuth";
-import { loginAuth } from "../../Redux/Reducers/LoginAuth/Components/AsyncThunk";
+import { unwrapResult } from "@reduxjs/toolkit";
+
 import "./Components/Style/LoginPage.css";
 
 function LoginPage() {
@@ -30,7 +31,7 @@ function LoginPage() {
         ? navigate("/homepage")
         : alert("Client not found, Try again ");
     } catch (error) {
-      console.error("Login failed:", error);
+      console.error(error);
     }
   };
 

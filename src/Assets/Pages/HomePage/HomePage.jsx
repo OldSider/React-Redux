@@ -1,13 +1,20 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDataBase } from "../../Redux/Reducers/GetDataBase/Components/AsyncThunk";
+import { useNavigate } from "react-router-dom";
+
+import Modal from "./Components/Dialog/Modal";
 
 import "./Components/Style/HomePage.css";
 
 function HomePage() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const customers = useSelector((state) => state.getAll.data);
   const [search, setSearch] = useState("");
+  const [openModal, setOpenModal] = useState(false);
+  const [selectedCustomerId, setSelectedCustomerId] = useState(null);
+  const [selectedCustomer, setSelectedCustomer] = useState(null);
 
   useEffect(() => {
     dispatch(getDataBase());
@@ -33,8 +40,22 @@ function HomePage() {
             className="header-filter"
           />
 
-          <button className="header-btnAdd">Adicionar</button>
-          <button className="header-btn">Sair</button>
+          <button
+            className="header-btnAdd"
+            onClick={() => {
+              setOpenModal(true);
+            }}
+          >
+            Adicionar
+          </button>
+          <button
+            className="header-btn"
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            Exit
+          </button>
         </div>
         <table>
           <thead>
@@ -52,13 +73,30 @@ function HomePage() {
                 <td>{customer.fullName}</td>
                 <td>{customer.email}</td>
                 <td>
-                  <button className="btn1">view</button>
+                  <button
+                    className="btn1"
+                    onClick={() => {
+                      setSelectedCustomerId(customer.id);
+                      setSelectedCustomer(customer);
+                      setOpenModal(true);
+                    }}
+                  >
+                    View
+                  </button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+        <div></div>
       </div>
+      <Modal
+        isOpen={openModal}
+        setMoralOpen={() => {
+          setOpenModal(!openModal);
+        }}
+        selectedCustomer={selectedCustomer}
+      />
     </>
   );
 }
