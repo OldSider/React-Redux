@@ -1,13 +1,15 @@
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { unwrapResult } from "@reduxjs/toolkit";
+import { Link, useNavigate } from "react-router-dom";
 import {
   setEmail,
   setPassword,
 } from "../../Redux/Reducers/LoginAuth/LoginAuth";
-
+import { loginAuth } from "../../Redux/Reducers/LoginAuth/Components/AsyncThunk";
 import "./Components/Style/LoginPage.css";
 
 function LoginPage() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const authInfo = useSelector((state) => state.authLogin);
 
@@ -16,6 +18,20 @@ function LoginPage() {
   };
   const handlePasswordInput = (event) => {
     dispatch(setPassword(event.target.value));
+  };
+
+  const handleLoginValidation = async () => {
+    try {
+      const resultAction = await dispatch(
+        loginAuth({ email: authInfo.email, password: authInfo.password })
+      );
+      const loginResult = unwrapResult(resultAction);
+      loginResult
+        ? navigate("/homepage")
+        : alert("Client not found, Try again ");
+    } catch (error) {
+      console.error("Login failed:", error);
+    }
   };
 
   return (
@@ -55,7 +71,7 @@ function LoginPage() {
             </Link>
           </div>
 
-          <button className="btn" type="submit">
+          <button className="btn" type="submit" onClick={handleLoginValidation}>
             Login
           </button>
 

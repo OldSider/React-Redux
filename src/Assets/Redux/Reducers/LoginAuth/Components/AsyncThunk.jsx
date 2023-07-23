@@ -3,12 +3,20 @@ import API from "../../../../Provider/AxiosApi";
 
 export const loginAuth = createAsyncThunk(
   "getAuthLogin/getLoginValue",
-  async (arg, { rejectWithValue }) => {
+  async ({ email, password }, { rejectWithValue }) => {
     try {
-      const { data } = await API.get("/informations");
-      return data;
+      const response = await API.get("/informations");
+      const { data } = response;
+      const customer = data.find(
+        (item) => item.email === email && item.userPassword === password
+      );
+      if (customer) {
+        return true;
+      } else {
+        return false;
+      }
     } catch (error) {
-      rejectWithValue(error.response.data);
+      return rejectWithValue(error.response.data);
     }
   }
 );
