@@ -1,11 +1,22 @@
-import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import {
+  setEmail,
+  setPassword,
+} from "../../Redux/Reducers/LoginAuth/LoginAuth";
 
 import "./Components/Style/LoginPage.css";
 
 function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const authInfo = useSelector((state) => state.authLogin);
+
+  const handleEmailInput = (event) => {
+    dispatch(setEmail(event.target.value));
+  };
+  const handlePasswordInput = (event) => {
+    dispatch(setPassword(event.target.value));
+  };
 
   return (
     <>
@@ -18,10 +29,8 @@ function LoginPage() {
               type="text"
               placeholder="Email"
               required
-              value={email}
-              onChange={(event) => {
-                setEmail(event.target.value);
-              }}
+              value={authInfo.email}
+              onChange={handleEmailInput}
             />
             <i className="bx bxs-user"></i>
           </div>
@@ -31,10 +40,8 @@ function LoginPage() {
               type="password"
               placeholder="Password"
               required
-              value={password}
-              onChange={(event) => {
-                setPassword(event.target.value);
-              }}
+              value={authInfo.password}
+              onChange={handlePasswordInput}
             />
             <i className="bx bxs-lock-alt"></i>
           </div>
