@@ -1,18 +1,41 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+
 import "./Components/Style/LoginPage.css";
 
 function LoginPage() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
     <>
       <div className="wrapper">
-        <form action="%">
+        <div>
           <h1>Login</h1>
+
           <div className="input-box">
-            <input type="text" placeholder="Email" required />
+            <input
+              type="text"
+              placeholder="Email"
+              required
+              value={email}
+              onChange={(event) => {
+                setEmail(event.target.value);
+              }}
+            />
             <i className="bx bxs-user"></i>
           </div>
+
           <div className="input-box">
-            <input type="password" placeholder="Password" required />
+            <input
+              type="password"
+              placeholder="Password"
+              required
+              value={password}
+              onChange={(event) => {
+                setPassword(event.target.value);
+              }}
+            />
             <i className="bx bxs-lock-alt"></i>
           </div>
 
@@ -37,7 +60,7 @@ function LoginPage() {
               </Link>
             </p>
           </div>
-        </form>
+        </div>
       </div>
     </>
   );

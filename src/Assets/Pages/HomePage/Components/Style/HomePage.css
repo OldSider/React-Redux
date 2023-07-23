@@ -14,7 +14,7 @@ body {
   align-items: center;
 }
 
-.wrapper {
+.wrapper-home {
   width: 600px;
   height: 500px;
   background: transparent;
@@ -25,7 +25,7 @@ body {
   overflow: auto;
 }
 
-.wrapper .btn1 {
+.wrapper-home .btn1 {
   width: 60px;
   display: flex;
   justify-content: center;
