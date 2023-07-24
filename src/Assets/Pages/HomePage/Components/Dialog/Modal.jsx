@@ -1,6 +1,22 @@
+import { useDispatch } from "react-redux";
+
 import "./Style/Modal.css";
+import { deleteCustomer } from "../../../../Redux/Reducers/DeleteCustomer/Components/AsyncThunk";
 
 function Modal({ isOpen, selectedCustomer, setMoralOpen }) {
+  const dispatch = useDispatch();
+
+  const handleDelete = () => {
+    try {
+      if (selectedCustomer) {
+        dispatch(deleteCustomer(selectedCustomer.id));
+        setMoralOpen();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   if (isOpen) {
     return (
       <>
@@ -71,7 +87,9 @@ function Modal({ isOpen, selectedCustomer, setMoralOpen }) {
                 Close
               </button>
 
-              <button className="modalBtn">Delete</button>
+              <button className="modalBtn" onClick={handleDelete}>
+                Delete
+              </button>
 
               <button className="modalBtn">Update</button>
             </div>

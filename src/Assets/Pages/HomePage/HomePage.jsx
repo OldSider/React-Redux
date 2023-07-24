@@ -13,12 +13,12 @@ function HomePage() {
   const customers = useSelector((state) => state.getAll.data);
   const [search, setSearch] = useState("");
   const [openModal, setOpenModal] = useState(false);
-  const [selectedCustomerId, setSelectedCustomerId] = useState(null);
+  const [ setSelectedCustomerId] = useState(null);
   const [selectedCustomer, setSelectedCustomer] = useState(null);
 
   useEffect(() => {
     dispatch(getDataBase());
-  }, [dispatch]);
+  }, [getDataBase()]);
 
   const filteredCustomers = customers.filter(
     (customer) =>
@@ -40,14 +40,7 @@ function HomePage() {
             className="header-filter"
           />
 
-          <button
-            className="header-btnAdd"
-            onClick={() => {
-              setOpenModal(true);
-            }}
-          >
-            Adicionar
-          </button>
+          <button className="header-btnAdd">Adicionar</button>
           <button
             className="header-btn"
             onClick={() => {
