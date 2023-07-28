@@ -1,16 +1,20 @@
-import { useDispatch } from "react-redux";
-
-import "./Style/Modal.css";
 import { deleteCustomer } from "../../../../Redux/Reducers/DeleteCustomer/Components/AsyncThunk";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
 
-function Modal({ isOpen, selectedCustomer, setMoralOpen }) {
+import "./Style/MoreInfo.css";
+import EditCustomersModal from "./EditCustomers";
+
+function Modal({ isOpen, selectedCustomer, setModalOpen }) {
+  const [editModal, setEditModal] = useState(false);
+
   const dispatch = useDispatch();
 
   const handleDelete = () => {
     try {
       if (selectedCustomer) {
         dispatch(deleteCustomer(selectedCustomer.id));
-        setMoralOpen();
+        setModalOpen();
       }
     } catch (error) {
       console.error(error);
@@ -80,7 +84,7 @@ function Modal({ isOpen, selectedCustomer, setMoralOpen }) {
             <div className="button-Block">
               <button
                 onClick={() => {
-                  setMoralOpen();
+                  setModalOpen();
                 }}
                 className="modalBtn"
               >
@@ -91,10 +95,24 @@ function Modal({ isOpen, selectedCustomer, setMoralOpen }) {
                 Delete
               </button>
 
-              <button className="modalBtn">Update</button>
+              <button
+                className="modalBtn"
+                onClick={() => {
+                  setEditModal(true);
+                }}
+              >
+                Update
+              </button>
             </div>
           </div>
         </div>
+        <EditCustomersModal
+          openEditModal={editModal}
+          setEditModal={() => {
+            setEditModal(!editModal);
+          }}
+          selectedCustomers={selectedCustomer}
+        />
       </>
     );
   }
