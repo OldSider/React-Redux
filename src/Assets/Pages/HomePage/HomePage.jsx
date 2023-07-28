@@ -23,6 +23,12 @@ function HomePage() {
     dispatch(getDataBase());
   }, [getDataBase()]);
 
+  const filter = customers.filter(
+    (customer) =>
+      customer.fullName.toLowerCase().includes(search.toLowerCase()) ||
+      customer.email.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
     <>
       <div className="wrapper-home">
@@ -37,7 +43,12 @@ function HomePage() {
             className="header-filter"
           />
 
-          <button className="header-btnAdd">Add New Customer</button>
+          <button
+            className="header-btnAdd"
+            onClick={() => navigate("/register")}
+          >
+            Add New Customer
+          </button>
           <button
             className="header-btn"
             onClick={() => {
@@ -56,7 +67,7 @@ function HomePage() {
             </tr>
           </thead>
           <tbody>
-            {customers.map((customer) => (
+            {filter.map((customer) => (
               <tr key={customer.id}>
                 <td>{customer.fullName}</td>
                 <td>{customer.email}</td>
