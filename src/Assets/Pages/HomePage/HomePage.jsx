@@ -59,32 +59,35 @@ function HomePage() {
           </button>
         </div>
         <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filter.map((customer) => (
-              <tr key={customer.id}>
-                <td>{customer.fullName}</td>
-                <td>{customer.email}</td>
-                <td>
-                  <button
-                    className="View-btn"
-                    onClick={() => {
-                      setSelectedCustomerId(customer.id);
-                      setSelectedCustomer(customer);
-                      setOpenModal(true);
-                    }}
-                  >
-                    View
-                  </button>
-                </td>
+          {loading && (
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Action</th>
               </tr>
-            ))}
+            </thead>
+          )}
+          <tbody>
+            {loading &&
+              filter.map((customer) => (
+                <tr key={customer.id}>
+                  <td>{customer.fullName}</td>
+                  <td>{customer.email}</td>
+                  <td>
+                    <button
+                      className="View-btn"
+                      onClick={() => {
+                        setSelectedCustomerId(customer.id);
+                        setSelectedCustomer(customer);
+                        setOpenModal(true);
+                      }}
+                    >
+                      View
+                    </button>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
         <div></div>

@@ -1,0 +1,59 @@
+.Register-wrapper {
+  width: 600px;
+  height: 550px;
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(20px);
+  border-radius: 10px;
+  padding: 30px 40px;
+  color: #fff;
+}
+
+.Register-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.Register-block label {
+  margin: 6px;
+  width: 240px;
+}
+
+.Register-block input {
+  margin-right: 45px;
+  padding: 12px;
+  border-radius: 10px;
+}
+
+.Register-block .error:focus {
+  border: 2px solid red;
+}
+
+.Register-block .error {
+  border: 2px solid red;
+}
+
+.Register-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.Register-btn button {
+  width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  border: none;
+  outline: none;
+  border-radius: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  font-size: 16px;
+  color: #333;
+  font-weight: 600;
+}
